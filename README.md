@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/polyphilz/lil-hawk/blob/main/src/images/logo.png" alt="lil hawk logo">
+  <img src="https://github.com/polyphilz/lil-hawk/blob/main/src/images/logo.png" alt="lil hawk logo" width="300" height="300">
 </p>
 
 <p align="center">
