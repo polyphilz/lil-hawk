@@ -1,0 +1,17 @@
+**/.DS_Store
+.vscode
+
+# From developer/ dir
+.env
+env
+__pycache__
+.vscode
+.idea
+developer/.idea/
+venv/
+
+# Ignore everything in the generated directory
+developer/generated/*
+
+# Don't ignore .gitkeep files in the generated directory
+!/generated/.gitkeep

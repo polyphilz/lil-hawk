@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <div id="logo-container">
+      <img id="logo" src="./images/logo.png" alt="logo" />
+      <h1 id="title">lil hawk</h1>
+    </div>
+    <div class="toggle">
+      <p>Enable T&C selection mode:</p>
+      <input id="selection-mode-toggle" type="checkbox" />
+      <label></label>
+    </div>
+    <div>
+      <label for="tc-input">T&C Input:</label>
+      <textarea id="tc-input"></textarea>
+    </div>
+    <div>
+      <label for="openai-api-key">OpenAI API Key:</label>
+      <input type="password" id="openai-api-key" />
+    </div>
+    <div class="toggle">
+      <p>GPT Version (off: 3.5, on: 4):</p>
+      <input id="gpt-toggle" type="checkbox" />
+      <label></label>
+    </div>
+    <div>
+      <button id="submit-button">Submit</button>
+    </div>
+    <div>
+      <label for="egregious-likely">Likely egregious:</label>
+      <textarea id="egregious-likely" readonly></textarea>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
