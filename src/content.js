@@ -34,12 +34,12 @@ document.addEventListener("keydown", (event) => {
   chrome.storage.local.get(["selectionMode"], (result) => {
     if (result.selectionMode && event.key === "Escape") {
       chrome.storage.local.set({ selectionMode: false }, () => {
-        console.log("lil hawk: selection mode has been disabled.");
+        console.log("lil' hawk: selection mode has been disabled.");
 
         if (hoveredElement) {
           let textContent = gatherText(hoveredElement);
           chrome.storage.local.set({ textContent }, () => {
-            console.log("lil hawk: T&C has been captured!");
+            console.log("lil' hawk: T&C has been captured!");
 
             removeHighlight(hoveredElement);
             hoveredElement = null;
