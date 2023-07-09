@@ -27,7 +27,25 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         messages: [{ role: "user", content: prompt }],
       }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          const errorMessage =
+            "There was an error. Sorry about that! Please try again later...";
+          chrome.storage.local.set(
+            {
+              egregiousContent: errorMessage,
+              submitInFlight: false,
+            },
+            () => {
+              chrome.runtime.sendMessage({
+                message: "displayEgregiousContent",
+                data: errorMessage,
+              });
+            }
+          );
+        }
+        return response.json();
+      })
       .then((data) => {
         chrome.storage.local.set(
           {
