@@ -30,13 +30,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       .then((response) => response.json())
       .then((data) => {
         chrome.storage.local.set(
-          { egregiousContent: data.choices[0].message.content },
+          {
+            egregiousContent: data.choices[0].message.content,
+            submitInFlight: false,
+          },
           () => {
-            chrome.storage.local.set({ submitInFlight: false }, () => {
-              chrome.runtime.sendMessage({
-                message: "displayEgregiousContent",
-                data: data.choices[0].message.content,
-              });
+            chrome.runtime.sendMessage({
+              message: "displayEgregiousContent",
+              data: data.choices[0].message.content,
             });
           }
         );
