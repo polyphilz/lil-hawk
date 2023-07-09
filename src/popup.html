@@ -3,36 +3,119 @@
   <head>
     <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
+
   <body>
+    <!-- LOGO & PROJECT NAME -->
     <div id="logo-container">
       <img id="logo" src="./images/logo.png" alt="logo" />
       <h1 id="title">lil hawk</h1>
     </div>
+
+    <!-- SELECTION MODE TOGGLE -->
     <div class="toggle">
-      <p>Enable T&C selection mode:</p>
+      <b>
+        <p>Enable UI text selection mode:</p>
+      </b>
+      <p style="margin-top: 0">
+        * Hit ESC twice when a UI element is highlighted to capture its text:
+      </p>
       <input id="selection-mode-toggle" type="checkbox" />
       <label></label>
     </div>
+
+    <!-- INPUT TEXT AREA -->
     <div>
-      <label for="tc-input">T&C Input:</label>
+      <b>
+        <p>Legal copy:</p>
+      </b>
       <textarea id="tc-input"></textarea>
     </div>
+
+    <!-- API KEY INPUT -->
     <div>
-      <label for="openai-api-key">OpenAI API Key:</label>
+      <b>
+        <p>OpenAI API key:</p>
+      </b>
       <input type="password" id="openai-api-key" />
     </div>
-    <div class="toggle">
-      <p>GPT Version (off: 3.5, on: 4):</p>
-      <input id="gpt-toggle" type="checkbox" />
-      <label></label>
+
+    <!-- MODEL VERSION RADIO BUTTONS -->
+    <div class="gpt-version-container">
+      <b>
+        <p>GPT model (<a href="#" id="info-link">?</a>):</p>
+      </b>
+
+      <div id="info-tooltip" class="hidden">
+        <p>
+          As of July 9th, 2023, there are 3 main GPT models OpenAI offers for
+          its Chat API:
+          <ul>
+            <li>GPT 3.5 (4k context size)</li>
+            <li>GPT 3.5 (16k context size)</li>
+            <li>GPT 4 (8k context size)</li>
+          </ul>
+        </p>
+
+        <!-- POWER -->
+        <b><p style="margin-bottom: 2px">Power</p></b>
+        <p style="margin-top: 0">Despite being faster, GPT 3.5 analyses aren't as good as GPT 4 ones. For the best results, it is recommended to use GPT 4.</p>
+        <!-- COST -->
+        <b><p style="margin-bottom: 2px">Cost</p></b>
+        <p style="margin-top: 0">That being said, GPT 4 is more expensive than GPT 3.5. Analyzing an average Terms & Conditions will cost:
+          <ul>
+            <li>GPT 3.5 (4k) - $0.02 USD</li>
+            <li>GPT 3.5 (16k) - $0.03 USD</li>
+            <li>GPT 4 (8k) - $0.30 USD</li>
+          </ul>
+        </p>
+        <!-- CONTEXT SIZE -->
+        <b><p style="margin-bottom: 2px">Context size</p></b>
+        <p style="margin-top: 0">Context size is how many words/characters the model can work with. Specifically, the unit is "tokens." An average Terms & Conditions is ~8k tokens (e.g. the 23andMe Terms of Service). If you try to take an 8k token-length T&C and analyze it using GPT 3.5 (4k), things will break! Well not to fret; lil' hawk gets around this using some hackery, but if you're intent on using a 3.5 model, ideally use the 16k one for best results.</p>
+      </div>
+
+      <!-- GPT 3.5 (4k) -->
+      <div>
+        <input
+          type="radio"
+          id="gpt-3.5-4k"
+          name="gpt-version"
+          value="gpt-3.5-turbo"
+          checked
+        />
+        <label for="gpt-3.5-4k">GPT 3.5 (4k context size)</label>
+      </div>
+
+      <!-- GPT 3.5 (16k) -->
+      <div>
+        <input
+          type="radio"
+          id="gpt-3.5-16k"
+          name="gpt-version"
+          value="gpt-3.5-turbo-16k"
+        />
+        <label for="gpt-3.5-16k">GPT 3.5 (16k context size)</label><br />
+      </div>
+
+      <!-- GPT 4 (8k) -->
+      <div>
+        <input type="radio" id="gpt-4-8k" name="gpt-version" value="gpt-4" />
+        <label for="gpt-4-8k">GPT 4 (8k context size)</label><br />
+      </div>
     </div>
+
+    <!-- SUBMIT BUTTON -->
     <div>
       <button id="submit-button">Submit</button>
     </div>
+
+    <!-- SUSPICIOUS CLAUSES TEXT AREA -->
     <div>
-      <label for="egregious-likely">Likely egregious:</label>
+      <b>
+        <p>Potentially suspicious:</p>
+      </b>
       <textarea id="egregious-likely" readonly></textarea>
     </div>
+
     <script src="popup.js"></script>
   </body>
 </html>

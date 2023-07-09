@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
+/* *** *** *** */
+/* GENERAL/ALL */
+/* *** *** *** */
 body {
   font-family: "Roboto", sans-serif;
   color: #333;
@@ -9,6 +12,13 @@ body {
   box-sizing: border-box;
 }
 
+div {
+  margin-bottom: 35px;
+}
+
+/* *** *** *** */
+/* LOGO & PROJECT NAME */
+/* *** *** *** */
 #logo-container {
   display: flex;
   flex-direction: column;
@@ -31,75 +41,11 @@ body {
   margin-top: 10px;
 }
 
-div {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input,
-textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-  font-size: 16px;
-}
-
-textarea {
-  resize: none;
-  height: 100px;
-}
-
-#egregious-likely {
-  background-color: #f0f0f0;
-  min-height: 200px;
-}
-
-#submit-button {
-  background: linear-gradient(270deg, #ff0000, #0000ff, #4b0082, #8b00ff);
-  width: 100px;
-  height: 50px;
-  background-size: 1400% 1400%;
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  border-radius: 5px;
-  animation: gradient 10s ease infinite;
-}
-
-#submit-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-  animation: none;
-}
-
-#gpt-slider {
-  margin: 10px 0;
-}
-
+/* *** *** *** */
+/* SELECTION MODE TOGGLE */
+/* *** *** *** */
 .highlighted {
   background-color: rgba(255, 0, 0, 0.3);
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 .toggle {
@@ -152,11 +98,131 @@ textarea {
 }
 
 .toggle input[type="checkbox"]:checked + label:before {
-  background: #4bd865;
+  background: linear-gradient(135deg, #ff0000, #0000ff, #4b0082, #8b00ff);
+  background-size: 200% 200%;
+  animation: selectionGradient 10s ease-in-out infinite;
+}
+
+@keyframes selectionGradient {
+  0% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .toggle input[type="checkbox"]:checked + label:after {
   left: 35px;
+}
+
+/* *** *** *** */
+/* INPUT TEXT AREA, API KEY INPUT, GENERAL TEXT AREA */
+/* *** *** *** */
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+/* *** *** *** */
+/* MODEL VERSION RADIO BUTTON & TOOLTIP */
+/* *** *** *** */
+.gpt-version-container > div {
+  margin-bottom: 0;
+}
+
+.gpt-version-container label {
+  position: relative;
+  top: -2.5px;
+  left: 5px;
+}
+
+#info-link {
+  text-decoration: none;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+#info-tooltip {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  width: 350px;
+  position: absolute;
+  z-index: 100;
+}
+
+.hidden {
+  display: none;
+}
+
+/* *** *** *** */
+/* SUBMIT BUTTON */
+/* *** *** *** */
+#submit-button {
+  background: linear-gradient(270deg, #ff0000, #0000ff, #4b0082, #8b00ff);
+  width: 100px;
+  height: 50px;
+  background-size: 1400% 1400%;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 5px;
+  animation: submitGradient 10s ease infinite;
+}
+
+#submit-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  animation: none;
+}
+
+@keyframes submitGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* *** *** *** */
+/* SUSPICIOUS CLAUSES TEXT AREA */
+/* *** *** *** */
+#egregious-likely {
+  background-color: #f0f0f0;
+  min-height: 200px;
+}
+
+/* *** *** *** */
+/* SUBMITTING WITHOUT AN API KEY */
+/* *** *** *** */
+.input-error {
+  animation-name: flash;
+  animation-duration: 0.3s;
+  animation-iteration-count: 3;
+  border: 5px solid red;
 }
 
 @keyframes flash {
@@ -169,11 +235,4 @@ textarea {
   100% {
     border-color: red;
   }
-}
-
-.input-error {
-  animation-name: flash;
-  animation-duration: 0.3s;
-  animation-iteration-count: 3;
-  border: 2px solid red;
 }
