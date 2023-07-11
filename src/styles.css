@@ -5,8 +5,8 @@
 /* *** *** *** */
 body {
   font-family: "Roboto", sans-serif;
-  color: #333;
-  background-color: #f4f4f4;
+  color: #4e4445;
+  background-color: #f5f0e4;
   padding: 10px;
   width: 450px;
   box-sizing: border-box;
@@ -14,6 +14,10 @@ body {
 
 div {
   margin-bottom: 35px;
+}
+
+p {
+  font-size: 14px;
 }
 
 /* *** *** *** */
@@ -98,7 +102,14 @@ div {
 }
 
 .toggle input[type="checkbox"]:checked + label:before {
-  background: linear-gradient(135deg, #ff0000, #0000ff, #4b0082, #8b00ff);
+  background: linear-gradient(
+    135deg,
+    #4a6741,
+    #3f5a36,
+    #374e2f,
+    #2f4429,
+    #22311d
+  );
   background-size: 200% 200%;
   animation: selectionGradient 10s ease-in-out infinite;
 }
@@ -131,11 +142,13 @@ textarea {
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
+  background: #fcfbf8;
 }
 
 textarea {
-  resize: none;
-  height: 100px;
+  resize: vertical;
+  overflow: auto;
+  min-height: 100px;
 }
 
 /* *** *** *** */
@@ -160,11 +173,16 @@ textarea {
 #info-tooltip {
   border: 1px solid #ccc;
   background-color: #fff;
+  box-shadow: 5px 5px 5px rgba(74, 103, 65, 0.2);
   padding: 10px;
   border-radius: 5px;
   width: 350px;
   position: absolute;
   z-index: 100;
+}
+
+#info-tooltip p {
+  font-size: 12px;
 }
 
 .hidden {
@@ -175,7 +193,14 @@ textarea {
 /* SUBMIT BUTTON */
 /* *** *** *** */
 #submit-button {
-  background: linear-gradient(270deg, #ff0000, #0000ff, #4b0082, #8b00ff);
+  background: linear-gradient(
+    270deg,
+    #4a6741,
+    #3f5a36,
+    #374e2f,
+    #2f4429,
+    #22311d
+  );
   width: 100px;
   height: 50px;
   background-size: 1400% 1400%;
