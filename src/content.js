@@ -14,47 +14,59 @@ const removeHighlight = (element) => {
   originalColors.delete(element);
 };
 
+const removeAllHighlights = () => {
+  var elements = document.getElementsByTagName("*");
+  for (var i = 0; i < elements.length; i++) {
+    removeHighlight(elements[i]);
+  }
+};
+
 const gatherText = (element) => {
   return element.innerText;
 };
 
-document.addEventListener("mouseover", (event) => {
-  chrome.storage.local.get(["selectionMode"], (result) => {
-    if (result.selectionMode) {
+const highlightElementListener = (event) => {
+  if (hoveredElement) {
+    removeHighlight(hoveredElement);
+  }
+  hoveredElement = event.target;
+  highlightElement(hoveredElement);
+};
+
+const keydownListener = (event) => {
+  if (event.key === "Escape") {
+    chrome.storage.local.set({ selectionMode: false }, () => {
       if (hoveredElement) {
-        removeHighlight(hoveredElement);
+        let textContent = gatherText(hoveredElement);
+        chrome.storage.local.set({ textContent }, () => {
+          removeHighlight(hoveredElement);
+          hoveredElement = null;
+        });
       }
-      hoveredElement = event.target;
-      highlightElement(hoveredElement);
-    }
-  });
+    });
+  }
+};
+
+chrome.storage.local.get(["selectionMode"], (result) => {
+  if (result.selectionMode) {
+    document.addEventListener("mouseover", highlightElementListener);
+    document.addEventListener("keydown", keydownListener);
+  } else {
+    document.removeEventListener("mouseover", highlightElementListener);
+    document.removeEventListener("keydown", keydownListener);
+    removeAllHighlights();
+  }
 });
 
-document.addEventListener("keydown", (event) => {
-  chrome.storage.local.get(["selectionMode"], (result) => {
-    if (result.selectionMode && event.key === "Escape") {
-      chrome.storage.local.set({ selectionMode: false }, () => {
-        console.log("lil' hawk: selection mode has been disabled.");
-
-        if (hoveredElement) {
-          let textContent = gatherText(hoveredElement);
-          chrome.storage.local.set({ textContent }, () => {
-            console.log("lil' hawk: T&C has been captured!");
-
-            removeHighlight(hoveredElement);
-            hoveredElement = null;
-          });
-        }
-      });
-    }
-  });
-});
-
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.message === "removeAllHighlights") {
-    var elements = document.getElementsByTagName("*");
-    for (var i = 0; i < elements.length; i++) {
-      removeHighlight(elements[i]);
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (changes.selectionMode) {
+    if (changes.selectionMode.newValue) {
+      document.addEventListener("mouseover", highlightElementListener);
+      document.addEventListener("keydown", keydownListener);
+    } else {
+      document.removeEventListener("mouseover", highlightElementListener);
+      document.removeEventListener("keydown", keydownListener);
+      removeAllHighlights();
     }
   }
 });
