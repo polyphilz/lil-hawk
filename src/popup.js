@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     [
       "selectionMode",
       "textContent",
+      "openAiApiKey",
       "selectedModel",
       "submitInFlight",
       "egregiousContent",
@@ -57,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
     (result) => {
       const selectionModeEnabled = result.selectionMode || false;
       const legalText = result.textContent || "";
+      const openAiApiKey = result.openAiApiKey || "";
       const selectedModel = result.selectedModel || DEFAULT_MODEL;
       const submitInFlight = result.submitInFlight || false;
       const egregiousContent = result.egregiousContent || "";
@@ -66,6 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // LEGAL INPUT
       legalInput.value = legalText;
+
+      // API KEY
+      openAiApiKeyInput.value = openAiApiKey;
 
       // SELECTED MODEL
       modelRadios.forEach((radio) => {
@@ -91,6 +96,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   legalInput.addEventListener("input", function () {
     chrome.storage.local.set({ textContent: this.value });
+  });
+
+  openAiApiKeyInput.addEventListener("input", function () {
+    chrome.storage.local.set({ openAiApiKey: this.value });
   });
 
   modelRadios.forEach((radio) => {
