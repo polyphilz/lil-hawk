@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let selectionModeCheckbox = document.getElementById("selection-mode-toggle");
   let tcInput = document.getElementById("tc-input");
   let openAiApiKeyInput = document.getElementById("openai-api-key");
-  // let modelToggle = document.getElementById("gpt-toggle");
   let modelRadios = document.getElementsByName("gpt-version");
   let submitButton = document.getElementById("submit-button");
   let egregiousnessTextArea = document.getElementById("egregious-likely");
