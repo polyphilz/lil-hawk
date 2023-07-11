@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
         chrome.storage.local.get(["selectedModel"], (result) => {
           console.log(result.selectedModel);
           let model = result.selectedModel;
-          let prompt = `Please highlight any content in the following legal text that is overly "egregious" (i.e. has anti-consumer privacy policies, harvests too much data or any other sort of potentially nefarious terms and conditions). Feel free to also highlight amusing, funny, generally interesting and/or dystopian clauses. Next to each highlight, add a short summary of why you believe that clause could be considered problematic. Return the results as a list of bullet points with 2 newlines in between:\n\n${tcInput.value}?`;
+          let prompt = `The following document is a legal agreement/contract (e.g. Terms & Conditions, Terms of Service, rental agreement, etc). Please highlight any content in the document that is overly "egregious" (i.e. has anti-consumer privacy policies, anti-renter clauses, harvests too much data or any other sort of potentially nefarious statements). Feel free to also highlight amusing, funny, generally interesting and/or dystopian clauses. Next to each highlight, add a short summary of why you believe that clause could be considered problematic. Return the results as a list of bullet points with 2 newlines in between:\n\n${tcInput.value}?`;
           chrome.runtime.sendMessage({
             message: "sendToOpenAIChatAPI",
             data: { model, prompt, apiKey },
