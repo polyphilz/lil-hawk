@@ -26,5 +26,6 @@
     "32": "images/icon32.png",
     "48": "images/icon48.png",
     "128": "images/icon128.png"
-  }
+  },
+  "description": "Check if legal documents (T&Cs, rental agreements and more) contain 'suspicious' clauses using the power of GPT models!"
 }
