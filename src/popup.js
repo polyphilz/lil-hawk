@@ -32,6 +32,10 @@ document.addEventListener("DOMContentLoaded", function () {
   let modelRadios = document.getElementsByName("gpt-version");
   let submitButton = document.getElementById("submit-button");
   let egregiousnessTextArea = document.getElementById("egregious-likely");
+  let cancelRequestContainer = document.getElementById(
+    "cancel-request-container"
+  );
+  let cancelRequest = document.getElementById("cancel-request");
 
   infoLink.addEventListener("mouseover", function () {
     infoTooltip.classList.remove("hidden");
@@ -139,6 +143,9 @@ document.addEventListener("DOMContentLoaded", function () {
       chrome.storage.local.get(["selectedModel"], (result) => {
         let model = result.selectedModel;
         let prompt = `The following document is a legal agreement/contract (e.g. Terms & Conditions, Terms of Service, rental agreement, etc). Please highlight any content in the document that is overly "egregious" (i.e. has anti-consumer privacy policies, anti-renter clauses, harvests too much data or any other sort of potentially nefarious statements). Feel free to also highlight amusing, funny, generally interesting and/or dystopian clauses. Next to each highlight, add a short summary of why you believe that clause could be considered problematic. Return the results as a list of bullet points with 2 newlines in between:\n\n${legalInput.value}?`;
+
+        cancelRequestContainer.classList.remove("hidden");
+
         chrome.runtime.sendMessage({
           message: "sendToOpenAIChatAPI",
           data: { model, prompt, apiKey },
@@ -153,11 +160,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  const setEgregiousContent = (content) => {
+    egregiousnessTextArea.value = content;
+    submitButton.disabled = false;
+  };
+
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === "displayEgregiousContent") {
-      egregiousnessTextArea.value = request.data;
-
-      submitButton.disabled = false;
+      cancelRequestContainer.classList.add("hidden");
+      setEgregiousContent(request.data);
     }
+  });
+
+  cancelRequest.addEventListener("click", function (event) {
+    event.preventDefault();
+    chrome.runtime.sendMessage({
+      message: "cancelApiRequest",
+    });
   });
 });

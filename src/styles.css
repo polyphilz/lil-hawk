@@ -240,6 +240,10 @@ textarea {
   min-height: 200px;
 }
 
+#cancel-request {
+  color: #4a6741 !important;
+}
+
 /* *** *** *** */
 /* SUBMITTING WITHOUT AN API KEY */
 /* *** *** *** */
