@@ -12,7 +12,7 @@
 
 lil' hawk is a Chrome extension that makes it easy to analyze legal documents and contracts such as Terms and Conditions, rental agreements and more.
 
-![](https://github.com/polyphilz/lil-hawk/blob/main/assets/demo.gif)
+![](https://github.com/polyphilz/lil-hawk/blob/main/assets/demo-new.gif)
 
 # How do I use it?
 
