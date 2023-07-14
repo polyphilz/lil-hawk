@@ -2,21 +2,22 @@
   <img src="https://github.com/polyphilz/lil-hawk/blob/main/src/images/logo.png" alt="lil hawk logo" width="200" height="200">
 </p>
 
+<h1 align="center">lil' hawk</h1>
+
 <p align="center">
-    <b>lil' hawk</b> <br />
     Use GPT models to check for suspicious clauses in legal documents.<br />
     Wrapped up in an easy-to-use Chrome extension; BYOK (bring your own [API] key)!
 </p>
 
-# What is this?
+## What is this?
 
 lil' hawk is a Chrome extension that makes it easy to analyze legal documents and contracts such as Terms and Conditions, rental agreements and more.
 
 ![](https://github.com/polyphilz/lil-hawk/blob/main/assets/demo-new.gif)
 
-# How do I use it?
+## How do I use it?
 
-1. Add text into the "legal copy" input box via the built-in selection mode or copy + paste
+1. Add text into the "legal copy" input box via the built-in text selection mode or copy + paste
 2. Add your OpenAI API key
 3. Pick the GPT model to use
 4. Find suspicious clauses!
@@ -29,9 +30,9 @@ I'll leave it at that to avoid spoilers, but one of the things the episode got m
 
 The solution is definitely _not_ to start reading T&Cs though unless you're a masochist. But a summary never hurts right?
 
-## Why not just use ChatGPT?
+### Why not just use ChatGPT?
 
-You totally can! I wrapped this up in a Chrome extension for convenience of selecting the text and having the prompt baked in.
+You totally can and should if that works better for you. I primarily made this to learn about Chrome extension development; along the way, I thought the convenience of the text selection mode and having the prompt baked in made the tool easier to reach for when quickly analyzing a T&C than opening a new chat with ChatGPT.
 
 ## And the code?
 
