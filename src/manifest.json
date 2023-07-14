@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "lil' hawk",
   "version": "1.0.0",
-  "permissions": ["storage"],
+  "permissions": ["activeTab", "scripting", "storage"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -15,17 +15,11 @@
   "background": {
     "service_worker": "background.js"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
-    }
-  ],
   "icons": {
     "16": "images/icon16.png",
     "32": "images/icon32.png",
     "48": "images/icon48.png",
     "128": "images/icon128.png"
   },
-  "description": "Check if legal documents (T&Cs, rental agreements and more) contain 'suspicious' clauses using the power of GPT models!"
+  "description": "Check if legal documents (terms & conditions, rental agreements, etc) contain \"suspicious\" clauses using the power of AI!"
 }

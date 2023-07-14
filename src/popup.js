@@ -24,7 +24,7 @@ const wittyStatements = [
 ];
 
 document.addEventListener("DOMContentLoaded", function () {
-  let selectionModeCheckbox = document.getElementById("selection-mode-toggle");
+  let selectionModeButton = document.getElementById("selection-mode-btn");
   let legalInput = document.getElementById("legal-input");
   let infoLink = document.getElementById("info-link");
   let infoTooltip = document.getElementById("info-tooltip");
@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Set all initial form values on load.
   chrome.storage.local.get(
     [
-      "selectionMode",
       "textContent",
       "openAiApiKey",
       "selectedModel",
@@ -60,15 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
       "egregiousContent",
     ],
     (result) => {
-      const selectionModeEnabled = result.selectionMode || false;
       const legalText = result.textContent || "";
       const openAiApiKey = result.openAiApiKey || "";
       const selectedModel = result.selectedModel || DEFAULT_MODEL;
       const submitInFlight = result.submitInFlight || false;
       const egregiousContent = result.egregiousContent || "";
-
-      // SELECTION MODE
-      selectionModeCheckbox.checked = selectionModeEnabled;
 
       // LEGAL INPUT
       legalInput.value = legalText;
@@ -92,10 +87,15 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   // Set all event listeners.
-  selectionModeCheckbox.addEventListener("change", function () {
-    chrome.storage.local.set({ selectionMode: this.checked }, () => {
-      console.log(`lil' hawk [popup] - Selection mode set to: ${this.checked}`);
-    });
+  selectionModeButton.addEventListener("click", function () {
+    chrome.runtime.sendMessage(
+      {
+        message: "enableTextSelection",
+      },
+      () => {
+        window.close();
+      }
+    );
   });
 
   legalInput.addEventListener("input", function () {

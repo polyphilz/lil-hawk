@@ -1,17 +1,17 @@
-let hoveredElement;
+var lilHawkHoveredElement;
 // If an element had a non-blank background color, we don't want to lose that
 // information, so we store it here such that when `removeHighlight` is called
 // over that element, the original background color is restored to it.
-let originalColors = new Map();
+var lilHawkOriginalColorMap = new Map();
 
 const highlightElement = (element) => {
-  originalColors.set(element, element.style.backgroundColor);
+  lilHawkOriginalColorMap.set(element, element.style.backgroundColor);
   element.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
 };
 
 const removeHighlight = (element) => {
-  element.style.backgroundColor = originalColors.get(element) || "";
-  originalColors.delete(element);
+  element.style.backgroundColor = lilHawkOriginalColorMap.get(element) || "";
+  lilHawkOriginalColorMap.delete(element);
 };
 
 const removeAllHighlights = () => {
@@ -26,47 +26,30 @@ const gatherText = (element) => {
 };
 
 const highlightElementListener = (event) => {
-  if (hoveredElement) {
-    removeHighlight(hoveredElement);
+  if (lilHawkHoveredElement) {
+    removeHighlight(lilHawkHoveredElement);
   }
-  hoveredElement = event.target;
-  highlightElement(hoveredElement);
+  lilHawkHoveredElement = event.target;
+  highlightElement(lilHawkHoveredElement);
 };
 
 const keydownListener = (event) => {
   if (event.key === "Escape") {
-    chrome.storage.local.set({ selectionMode: false }, () => {
-      if (hoveredElement) {
-        let textContent = gatherText(hoveredElement);
-        chrome.storage.local.set({ textContent }, () => {
-          removeHighlight(hoveredElement);
-          hoveredElement = null;
-        });
-      }
-    });
+    if (lilHawkHoveredElement) {
+      let textContent = gatherText(lilHawkHoveredElement);
+      chrome.storage.local.set({ textContent }, () => {
+        removeHighlight(lilHawkHoveredElement);
+        lilHawkHoveredElement = null;
+        document.removeEventListener("mouseover", highlightElementListener);
+        document.removeEventListener("keydown", keydownListener);
+      });
+    }
   }
 };
 
-chrome.storage.local.get(["selectionMode"], (result) => {
-  if (result.selectionMode) {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.message === "start") {
     document.addEventListener("mouseover", highlightElementListener);
     document.addEventListener("keydown", keydownListener);
-  } else {
-    document.removeEventListener("mouseover", highlightElementListener);
-    document.removeEventListener("keydown", keydownListener);
-    removeAllHighlights();
-  }
-});
-
-chrome.storage.onChanged.addListener((changes, namespace) => {
-  if (changes.selectionMode) {
-    if (changes.selectionMode.newValue) {
-      document.addEventListener("mouseover", highlightElementListener);
-      document.addEventListener("keydown", keydownListener);
-    } else {
-      document.removeEventListener("mouseover", highlightElementListener);
-      document.removeEventListener("keydown", keydownListener);
-      removeAllHighlights();
-    }
   }
 });

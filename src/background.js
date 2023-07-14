@@ -9,7 +9,44 @@ const fetchTimeout = (url, ms, { signal, ...options } = {}) => {
 };
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.message === "sendToOpenAIChatAPI") {
+  if (request.message === "enableTextSelection") {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const currentTabId = tabs[0].id;
+
+      chrome.storage.local.get(["lilHawkContentInjectedTabs"], (result) => {
+        let tabList = result.lilHawkContentInjectedTabs || [];
+        // If the tab list has somehow reached 1,000 stored tabs, just clear it
+        // out. By this point, the tabs that were saved should likely no longer
+        // be active tabs in the user's browsing session.
+        if (tabList.length >= 1_000) {
+          tabList.length = 0;
+        }
+        if (!tabList.includes(currentTabId)) {
+          tabList.push(currentTabId);
+          chrome.storage.local.set(
+            { lilHawkContentInjectedTabs: tabList },
+            function () {
+              chrome.scripting.executeScript(
+                {
+                  target: { tabId: currentTabId },
+                  files: ["content.js"],
+                },
+                () => {
+                  chrome.tabs.sendMessage(currentTabId, { message: "start" });
+                  sendResponse({ message: "Text selection enabled" });
+                }
+              );
+            }
+          );
+        } else {
+          chrome.tabs.sendMessage(currentTabId, { message: "start" });
+          sendResponse({ message: "Text selection enabled" });
+        }
+      });
+    });
+
+    return true;
+  } else if (request.message === "sendToOpenAIChatAPI") {
     // Always make a new abort controller upon any fresh request, but save its
     // state globally so that you can cancel it too if the user opts to do so.
     controller = new AbortController();
