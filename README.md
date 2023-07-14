@@ -22,7 +22,7 @@ lil' hawk is a Chrome extension that makes it easy to analyze legal documents an
 3. Pick the GPT model to use
 4. Find suspicious clauses!
 
-# Why did you build this?
+## Why did you build this?
 
 Recently, I was watching the first episode of Season 6 of Black Mirror, "Joan is Awful," in which the main character Joan has her life destroyed when her normal day is turned into a TV series on "Streamberry" (AKA Netflix).
 
